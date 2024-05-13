@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function(){
     for(let button of buttons){
         button.addEventListener("click", function(){
             if(this.getAttribute("data-type") === "submit"){
-                alert("You clicked submit!");
+                checkAnswer();
             }
             else{
                 let gameType = this.getAttribute("data-type")
@@ -27,17 +27,43 @@ function runGame(gameType){
     if(gameType === "addition"){
         displayAdditionQuestion(num1, num2);
     }else{
-        alert(`Unknown game type: ${gameType}"`);
+        alert(`Unknown game type: ${gameType}`);
         throw `Unknown game type: ${gameType}. Aborting!`;
     }
 }
-
+/**
+ * Checks the answer against the first elment in
+ * the returned calculateCorrectAnswer array
+ */
 function checkAnswer(){
+    let userAnswer = parseInt(document.getElementById("answer-box").value);
+    let calculatedAnswer = calculateCorrectAnswer();
+    let isCorrect = userAnswer === calculatedAnswer[0];
 
+    if(isCorrect){
+        alert("Hey! You got it right! :D")
+    }else{
+        alert(`Awwwww..... you answered ${userAnswer}. The correct answer was ${calculatedAnswer[0]}`);
+    }
+
+    runGame(calculatedAnswer[1]);
 }
-
+/**
+ * Gets the operands (the numbers) and the operator (plua, minus...etc)
+ * directly from the dom and get the correct answer.
+ */
 function calculateCorrectAnswer(){
+    //Get the values back from the DOM
+    let operand1 = parseInt(document.getElementById('operand1').innerText);
+    let operand2 = parseInt(document.getElementById('operand2').innerText);
+    let operator = document.getElementById('operator').innerText;
 
+    if(operator === "+"){
+        return [operand1 + operand2, "addition"];
+    }else{
+        alert(`Unimplemented operator ${operator}`);
+        throw `Unimplemented operator ${operator}. Aborting!`;
+    }
 }
 
 function incrementScore(){
