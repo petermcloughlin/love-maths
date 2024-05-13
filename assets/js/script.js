@@ -13,6 +13,13 @@ document.addEventListener("DOMContentLoaded", function(){
             }
         });
     }
+
+    //Add event listener for the submit button to use enter key as a keyboard submission
+    document.getElementById("answer-box").addEventListener("keydown", function(event){
+        if(event.key === "Enter"){
+            checkAnswer();
+        }
+    })
     runGame("addition");
 })
 /**
@@ -20,6 +27,10 @@ document.addEventListener("DOMContentLoaded", function(){
  * and after the user's answer has been processed
  */
 function runGame(gameType){
+    //clear answer box each time answer is submitted
+    document.getElementById("answer-box").value = "";
+    //Keep focus on answer box when game is run
+    document.getElementById("answer-box").focus();
     //Create two random numbers between 1 and 25
     let num1 = Math.floor(Math.random() * 25) + 1;
     let num2 = Math.floor(Math.random() * 25) + 1;
