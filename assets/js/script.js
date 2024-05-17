@@ -46,8 +46,7 @@ function runGame(gameType){
 	}else{
         alert(`Unknown game type: ${gameType}`);
         throw `Unknown game type: ${gameType}. Aborting!`;
-    }
-    
+    }    
     
 }
 /**
